@@ -64,7 +64,7 @@ mod tests {
                 black_box(ArrayBase::from_shape_fn((M, N), |_| {
                     random.gen_range(0..100)
                 }));
-            a * b
+            a.dot(&b)
         });
     }
 }

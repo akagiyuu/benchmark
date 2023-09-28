@@ -14,25 +14,25 @@
 
 | benchmark                      | result                      |
 | ------------------------------ | --------------------------- |
-| flat_matrix_multiply_bench     | 78,602 ns/iter (+/- 5,380)  |
-| nalgebra_matrix_multiply_bench | 76,946 ns/iter (+/- 4,105)  |
-| ndarray_matrix_multiply_bench  | 46,254 ns/iter (+/- 3,000)  |
-| normal_matrix_multiply_bench   | 106,689 ns/iter (+/- 4,209) |
+| flat_matrix_multiply_bench     | 80,637 ns/iter (+/- 4,923)  |
+| nalgebra_matrix_multiply_bench | 77,034 ns/iter (+/- 4,780)  |
+| ndarray_matrix_multiply_bench  | 117,200 ns/iter (+/- 8,929) |
+| normal_matrix_multiply_bench   | 107,167 ns/iter (+/- 6,214) |
 
 * Multiply 2 100x100 matrices
 
 | benchmark                      | result                       |
 | ------------------------------ | ---------------------------- |
-| flat_matrix_multiply_bench     | 500,515 ns/iter (+/- 40,693) |
-| nalgebra_matrix_multiply_bench | 467,279 ns/iter (+/- 23,016) |
-| ndarray_matrix_multiply_bench  | 186,015 ns/iter (+/- 12,312) |
-| normal_matrix_multiply_bench   | 745,341 ns/iter (+/- 49,542) |
+| flat_matrix_multiply_bench     | 492,863 ns/iter (+/- 22,295) |
+| nalgebra_matrix_multiply_bench | 466,559 ns/iter (+/- 30,590) |
+| ndarray_matrix_multiply_bench  | 684,711 ns/iter (+/- 40,512) |
+| normal_matrix_multiply_bench   | 750,356 ns/iter (+/- 57,111) |
 
 * Multiply 2 400x400 matrices
 
-| benchmark                      | result                           |
-| ------------------------------ | -------------------------------- |
-| flat_matrix_multiply_bench     | 45,775,112 ns/iter (+/- 876,771) |
-| nalgebra_matrix_multiply_bench | 25,416,333 ns/iter (+/- 739,142) |
-| ndarray_matrix_multiply_bench  | 3,466,733 ns/iter (+/- 161,325)  |
-| normal_matrix_multiply_bench   | 43,041,195 ns/iter (+/- 955,663) |
+| benchmark                      | result                             |
+| ------------------------------ | ---------------------------------- |
+| flat_matrix_multiply_bench     | 46,347,151 ns/iter (+/- 2,591,154) |
+| nalgebra_matrix_multiply_bench | 25,439,335 ns/iter (+/- 1,942,604) |
+| ndarray_matrix_multiply_bench  | 46,282,423 ns/iter (+/- 3,827,905) |
+| normal_matrix_multiply_bench   | 43,389,376 ns/iter (+/- 2,149,290) |
