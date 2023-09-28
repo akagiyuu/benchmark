@@ -20,9 +20,9 @@ mod tests {
     use test::black_box;
     use test::Bencher;
 
-    const N: usize = 100;
-    const M: usize = 100;
-    const P: usize = 100;
+    const N: usize = 400;
+    const M: usize = 400;
+    const P: usize = 400;
 
     #[bench]
     fn normal_matrix_multiply_bench(bencher: &mut Bencher) {
