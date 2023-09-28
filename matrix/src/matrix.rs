@@ -79,3 +79,45 @@ impl<const M: usize, const N: usize> Matrix<u32, M, N> {
         result
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn multiply() {
+        let a = Matrix::<u32, 2, 2> {
+            data: [[0, 6], [8, 5]],
+        };
+        let b = Matrix {
+            data: [[5, 0], [2, 3]],
+        };
+        assert_eq!(
+            a * b,
+            Matrix {
+                data: [[12, 18], [50, 15]]
+            }
+        );
+
+        let a = Matrix::<u32, 3, 4> {
+            data: [[5, 8, 6, 4], [0, 2, 3, 6], [4, 5, 8, 7]],
+        };
+        let b = Matrix {
+            data: [
+                [8, 9, 5, 4, 2],
+                [6, 4, 5, 8, 7],
+                [4, 0, 3, 2, 5],
+                [4, 7, 8, 6, 3],
+            ],
+        };
+        assert_eq!(
+            a * b,
+            Matrix {
+                data: [
+                    [128, 105, 115, 120, 108],
+                    [48, 50, 67, 58, 47],
+                    [122, 105, 125, 114, 104],
+                ]
+            }
+        );
+    }
+}
