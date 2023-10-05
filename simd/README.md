@@ -1,4 +1,4 @@
-# Compare normal dot product with SIMD dot product
+# Compare SIMD dot product with other implementations
 
 ## How to run?
 
@@ -8,14 +8,26 @@
 
 ## Result
 
-```bash
-$ cargo +nightly bench
+* Dot product of 2 10000000 elements vectors
 
-running 4 tests
-test tests::dot_product_simd_test ... ignored
-test tests::dot_product_test ... ignored
-test tests::dot_product_bench      ... bench:  13,636,042 ns/iter (+/- 1,066,865)
-test tests::dot_product_simd_bench ... bench:  12,686,951 ns/iter (+/- 1,056,809)
+| benchmark               | result                              |
+| ----------------------- | ----------------------------------- |
+| dot_product_bench       | 152,594,464 ns/iter (+/- 1,940,396) |
+| dot_product_rayon_bench | 145,130,206 ns/iter (+/- 6,536,343) |
+| dot_product_simd_bench  | 144,510,480 ns/iter (+/- 1,284,809) |
 
-test result: ok. 0 passed; 0 failed; 2 ignored; 2 measured; 0 filtered out; finished in 7.99s
-```
+* Dot product of 2 100000 elements vectors
+
+| benchmark               | result                          |
+| ----------------------- | ------------------------------- |
+| dot_product_bench       | 1,413,525 ns/iter (+/- 64,231)  |
+| dot_product_rayon_bench | 1,548,394 ns/iter (+/- 117,302) |
+| dot_product_simd_bench  | 1,329,162 ns/iter (+/- 49,746)  |
+
+* Dot product of 2 1000 elements vectors
+
+| benchmark               | result                     |
+| ----------------------- | -------------------------- |
+| dot_product_bench       | 14,581 ns/iter (+/- 848)   |
+| dot_product_rayon_bench | 32,525 ns/iter (+/- 2,332) |
+| dot_product_simd_bench  | 13,660 ns/iter (+/- 378)   |
