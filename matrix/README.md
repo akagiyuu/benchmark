@@ -1,4 +1,4 @@
-# Compare 2D matrix and flat matrix
+# Compare multiple implementations of matrix multiplication
 
 ## How to run?
 
