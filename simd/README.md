@@ -1,4 +1,4 @@
-# Compare SIMD dot product with other implementations
+# Compare SIMD with other traditional methods
 
 ## How to run?
 
@@ -8,26 +8,20 @@
 
 ## Result
 
-* Dot product of 2 10000000 elements vectors
+* Dot product
 
-| benchmark               | result                              |
-| ----------------------- | ----------------------------------- |
-| dot_product_bench       | 152,594,464 ns/iter (+/- 1,940,396) |
-| dot_product_rayon_bench | 145,130,206 ns/iter (+/- 6,536,343) |
-| dot_product_simd_bench  | 144,510,480 ns/iter (+/- 1,284,809) |
-
-* Dot product of 2 100000 elements vectors
-
-| benchmark               | result                          |
-| ----------------------- | ------------------------------- |
-| dot_product_bench       | 1,413,525 ns/iter (+/- 64,231)  |
-| dot_product_rayon_bench | 1,548,394 ns/iter (+/- 117,302) |
-| dot_product_simd_bench  | 1,329,162 ns/iter (+/- 49,746)  |
-
-* Dot product of 2 1000 elements vectors
-
-| benchmark               | result                     |
-| ----------------------- | -------------------------- |
-| dot_product_bench       | 14,581 ns/iter (+/- 848)   |
-| dot_product_rayon_bench | 32,525 ns/iter (+/- 2,332) |
-| dot_product_simd_bench  | 13,660 ns/iter (+/- 378)   |
+```bash
+dot_product     fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ normal                     │               │               │               │         │
+│  ├─ 1000      1.2 µs        │ 18.64 µs      │ 1.259 µs      │ 2.049 µs      │ 100     │ 100
+│  ├─ 100000    144.2 µs      │ 412.5 µs      │ 151.1 µs      │ 167.2 µs      │ 100     │ 100
+│  ╰─ 10000000  12.6 ms       │ 14.98 ms      │ 13.41 ms      │ 13.46 ms      │ 100     │ 100
+├─ rayon                      │               │               │               │         │
+│  ├─ 1000      14.97 µs      │ 263.7 µs      │ 15.05 µs      │ 20.38 µs      │ 100     │ 100
+│  ├─ 100000    156.1 µs      │ 389.5 µs      │ 208.9 µs      │ 225.2 µs      │ 100     │ 100
+│  ╰─ 10000000  12.57 ms      │ 17.45 ms      │ 13.34 ms      │ 13.47 ms      │ 100     │ 100
+╰─ simd                       │               │               │               │         │
+   ├─ 1000      322.4 ns      │ 386.3 ns      │ 326.9 ns      │ 328.1 ns      │ 100     │ 800
+   ├─ 100000    61.9 µs       │ 190.5 µs      │ 68.83 µs      │ 75.91 µs      │ 100     │ 100
+   ╰─ 10000000  4.379 ms      │ 6.802 ms      │ 4.712 ms      │ 4.901 ms      │ 100     │ 100
+```

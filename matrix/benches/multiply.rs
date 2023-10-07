@@ -58,14 +58,3 @@ fn ndarray_matrix<const N: usize>(bencher: divan::Bencher) {
         })
         .bench_values(|(a, b)| a.dot(&b))
 }
-
-//             let a = black_box();
-//             let b = black_box(DMatrix::from_fn(M, N, |_, _| random.gen_range(0..100u32)));
-//
-//             let mut random = rand::thread_rng();
-//             let a: ArrayBase<OwnedRepr<u32>, Dim<[usize; 2]>> =
-//                 black_box();
-//             let b: ArrayBase<OwnedRepr<u32>, Dim<[usize; 2]>> =
-//                 black_box(ArrayBase::from_shape_fn((M, N), |_| {
-//                     random.gen_range(0..100)
-//                 }));
