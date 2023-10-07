@@ -1,38 +1,31 @@
-# Compare multiple implementations of matrix multiplication
+# Compare multiple implementations of matrix
 
 ## How to run?
 
-* benchmarks:
-  * change N, M, P
-  * run `cargo +nightly bench`
+* benchmarks: `cargo +nightly bench`
 
 * tests: `cargo +nightly test`
 
 ## Result
 
-* Multiply 2 50x50 matrices  
+* Multiply
 
-| benchmark                      | result                      |
-| ------------------------------ | --------------------------- |
-| flat_matrix_multiply_bench     | 80,637 ns/iter (+/- 4,923)  |
-| nalgebra_matrix_multiply_bench | 77,034 ns/iter (+/- 4,780)  |
-| ndarray_matrix_multiply_bench  | 117,200 ns/iter (+/- 8,929) |
-| normal_matrix_multiply_bench   | 107,167 ns/iter (+/- 6,214) |
-
-* Multiply 2 100x100 matrices
-
-| benchmark                      | result                       |
-| ------------------------------ | ---------------------------- |
-| flat_matrix_multiply_bench     | 492,863 ns/iter (+/- 22,295) |
-| nalgebra_matrix_multiply_bench | 466,559 ns/iter (+/- 30,590) |
-| ndarray_matrix_multiply_bench  | 684,711 ns/iter (+/- 40,512) |
-| normal_matrix_multiply_bench   | 750,356 ns/iter (+/- 57,111) |
-
-* Multiply 2 400x400 matrices
-
-| benchmark                      | result                             |
-| ------------------------------ | ---------------------------------- |
-| flat_matrix_multiply_bench     | 46,347,151 ns/iter (+/- 2,591,154) |
-| nalgebra_matrix_multiply_bench | 25,439,335 ns/iter (+/- 1,942,604) |
-| ndarray_matrix_multiply_bench  | 46,282,423 ns/iter (+/- 3,827,905) |
-| normal_matrix_multiply_bench   | 43,389,376 ns/iter (+/- 2,149,290) |
+``` bash
+multiply            fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ flat_matrix                    │               │               │               │         │
+│  ├─ 10            379 ns        │ 404.3 ns      │ 384.3 ns      │ 385.9 ns      │ 100     │ 800
+│  ├─ 100           345.1 µs      │ 503.8 µs      │ 366.8 µs      │ 372.8 µs      │ 100     │ 100
+│  ╰─ 500           85.61 ms      │ 93.17 ms      │ 86.9 ms       │ 87.28 ms      │ 100     │ 100
+├─ nalgebra_matrix                │               │               │               │         │
+│  ├─ 10            431.7 ns      │ 4.08 µs       │ 442.8 ns      │ 486.2 ns      │ 100     │ 400
+│  ├─ 100           307.4 µs      │ 441.6 µs      │ 307.5 µs      │ 324.9 µs      │ 100     │ 100
+│  ╰─ 500           39.87 ms      │ 43.83 ms      │ 40.73 ms      │ 40.87 ms      │ 100     │ 100
+├─ ndarray_matrix                 │               │               │               │         │
+│  ├─ 10            899.2 ns      │ 8.452 µs      │ 904.4 ns      │ 1.252 µs      │ 100     │ 200
+│  ├─ 100           458.7 µs      │ 636.5 µs      │ 461.7 µs      │ 481.1 µs      │ 100     │ 100
+│  ╰─ 500           90.05 ms      │ 98.63 ms      │ 91.27 ms      │ 91.65 ms      │ 100     │ 100
+╰─ normal_matrix                  │               │               │               │         │
+   ├─ 10            311.7 ns      │ 346.2 ns      │ 315.9 ns      │ 317.8 ns      │ 100     │ 800
+   ├─ 100           568.4 µs      │ 856.8 µs      │ 568.6 µs      │ 595.5 µs      │ 100     │ 100
+   ╰─ 500           73.2 ms       │ 82.53 ms      │ 74.33 ms      │ 74.72 ms      │ 100     │ 100
+```
