@@ -19,3 +19,13 @@ fn fibonacci_cached<const N: usize>() -> usize {
 fn fibonacci_matrix<const N: usize>() -> usize {
     fibonacci::matrix(divan::black_box(N))
 }
+
+#[divan::bench(consts = N)]
+fn fibonacci_formula<const N: usize>() -> usize {
+    fibonacci::formula(divan::black_box(N))
+}
+
+#[divan::bench(consts = N)]
+fn fibonacci_hybrid<const N: usize>() -> usize {
+    fibonacci::hybrid(divan::black_box(N))
+}

@@ -69,6 +69,24 @@ pub fn matrix(n: usize) -> usize {
     fibonacci_matrix.data[0]
 }
 
+///Note: wrong answer for n >= 76
+pub fn formula(n: usize) -> usize {
+    (((1. + 5f64.sqrt()) / 2.).powi(n as i32) / 5f64.sqrt()).round() as usize
+}
+
+/// The best method to calculate n-th fibonacci
+pub fn hybrid(n: usize) -> usize {
+    // Iterative is efficient in the range of 0 to 10
+    if n <= 10 {
+        return iterative(n);
+    }
+    if n <= 75 {
+        return formula(n);
+    }
+
+    matrix(n)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -94,6 +112,20 @@ mod tests {
     fn fibonacci_matrix_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
             assert_eq!(matrix(i), *fibonacci);
+        }
+    }
+
+    #[test]
+    fn fibonacci_formula_test() {
+        for (i, fibonacci) in FIBONACCI.iter().enumerate() {
+            assert_eq!(formula(i), *fibonacci);
+        }
+    }
+
+    #[test]
+    fn fibonacci_hybrid_test() {
+        for (i, fibonacci) in FIBONACCI.iter().enumerate() {
+            assert_eq!(hybrid(i), *fibonacci);
         }
     }
 }
