@@ -1,5 +1,6 @@
 use std::ops::Range;
 
+use divan::counter::ItemsCount;
 use rand::Rng;
 use simd::{dot_product, dot_product_simd, dot_product_rayon};
 
@@ -25,6 +26,7 @@ fn random_f32_vector(size: usize) -> Vec<f32> {
 fn normal<const N: usize>(bencher: divan::Bencher) {
     bencher
         .with_inputs(|| (random_f32_vector(N), random_f32_vector(N)))
+        .input_counter(|(a,b)| ItemsCount::of_iter(a.iter().zip(b.iter())))
         .bench_values(|(a, b)| dot_product(&a, &b))
 }
 
@@ -32,6 +34,7 @@ fn normal<const N: usize>(bencher: divan::Bencher) {
 fn simd<const N: usize>(bencher: divan::Bencher) {
     bencher
         .with_inputs(|| (random_f32_vector(N), random_f32_vector(N)))
+        .input_counter(|(a,b)| ItemsCount::of_iter(a.iter().zip(b.iter())))
         .bench_values(|(a, b)| dot_product_simd(&a, &b))
 }
 
@@ -39,5 +42,6 @@ fn simd<const N: usize>(bencher: divan::Bencher) {
 fn rayon<const N: usize>(bencher: divan::Bencher) {
     bencher
         .with_inputs(|| (random_f32_vector(N), random_f32_vector(N)))
+        .input_counter(|(a,b)| ItemsCount::of_iter(a.iter().zip(b.iter())))
         .bench_values(|(a, b)| dot_product_rayon(&a, &b))
 }
