@@ -1,4 +1,4 @@
-pub fn iterative(n: usize) -> usize {
+pub fn iterative(n: u128) -> u128 {
     if n <= 1 {
         return n;
     }
@@ -13,28 +13,31 @@ pub fn iterative(n: usize) -> usize {
     c
 }
 
-pub struct Cache {
-    data: Vec<usize>,
-}
-impl Default for Cache {
-    fn default() -> Self {
-        Self { data: vec![0, 1] }
-    }
-}
-impl Cache {
-    pub fn fibonacci(&mut self, n: usize) -> usize {
-        let length = self.data.len();
-        for i in length..=n {
-            self.data.push(self.data[i - 1] + self.data[i - 2]);
-        }
+const MAX_FIB: usize = 186;
+// const MAX_FIB: usize = 93;
+static mut CACHE: [u128; MAX_FIB + 1] = [0; MAX_FIB + 1];
+static mut CACHE_LENGTH: usize = 2;
 
-        self.data[n]
+pub fn cached(n: usize) -> u128 {
+    if n > MAX_FIB {
+        panic!("n is too big");
+    }
+    unsafe {
+        CACHE[0] = 0;
+        CACHE[1] = 1;
+        for i in CACHE_LENGTH..=n {
+            CACHE[i] = CACHE[i - 1] + CACHE[i - 2];
+        }
+        if CACHE_LENGTH <= n {
+            CACHE_LENGTH = n + 1;
+        }
+        CACHE[n]
     }
 }
 
 #[derive(Clone, Copy)]
 struct Matrix2x2 {
-    data: [usize; 4],
+    data: [u128; 4],
 }
 impl Matrix2x2 {
     fn mul(&mut self, rhs: Matrix2x2) {
@@ -48,7 +51,7 @@ impl Matrix2x2 {
         ];
     }
     const BASE_MATRIX: Matrix2x2 = Matrix2x2 { data: [1, 1, 1, 0] };
-    fn pow(&mut self, n: usize) {
+    fn pow(&mut self, n: u128) {
         if n <= 1 {
             return;
         }
@@ -60,7 +63,7 @@ impl Matrix2x2 {
     }
 }
 
-pub fn matrix(n: usize) -> usize {
+pub fn matrix(n: u128) -> u128 {
     if n == 0 {
         return 0;
     }
@@ -70,12 +73,12 @@ pub fn matrix(n: usize) -> usize {
 }
 
 ///Note: wrong answer for n >= 76
-pub fn formula(n: usize) -> usize {
-    (((1. + 5f64.sqrt()) / 2.).powi(n as i32) / 5f64.sqrt()).round() as usize
+pub fn formula(n: u128) -> u128 {
+    (((1. + 5f64.sqrt()) / 2.).powi(n as i32) / 5f64.sqrt()).round() as u128
 }
 
 /// The best method to calculate n-th fibonacci
-pub fn hybrid(n: usize) -> usize {
+pub fn hybrid(n: u128) -> u128 {
     // Iterative is efficient in the range of 0 to 10
     if n <= 10 {
         return iterative(n);
@@ -91,41 +94,40 @@ pub fn hybrid(n: usize) -> usize {
 mod tests {
     use super::*;
 
-    const FIBONACCI: [usize; 10] = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
+    const FIBONACCI: [u128; 10] = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
 
     #[test]
-    fn fibonacci_iterative_test() {
+    fn iterative_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
-            assert_eq!(iterative(i), *fibonacci);
+            assert_eq!(iterative(i as u128), *fibonacci);
         }
     }
 
     #[test]
-    fn fibonacci_cached_test() {
-        let mut cache = Cache::default();
+    fn cached_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
-            assert_eq!(cache.fibonacci(i), *fibonacci);
+            assert_eq!(cached(i), *fibonacci);
         }
     }
 
     #[test]
-    fn fibonacci_matrix_test() {
+    fn matrix_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
-            assert_eq!(matrix(i), *fibonacci);
+            assert_eq!(matrix(i as u128), *fibonacci);
         }
     }
 
     #[test]
-    fn fibonacci_formula_test() {
+    fn formula_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
-            assert_eq!(formula(i), *fibonacci);
+            assert_eq!(formula(i as u128), *fibonacci);
         }
     }
 
     #[test]
-    fn fibonacci_hybrid_test() {
+    fn hybrid_test() {
         for (i, fibonacci) in FIBONACCI.iter().enumerate() {
-            assert_eq!(hybrid(i), *fibonacci);
+            assert_eq!(hybrid(i as u128), *fibonacci);
         }
     }
 }
